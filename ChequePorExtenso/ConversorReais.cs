@@ -1,10 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace ChequePorExtenso.Dominio
 {
     public class ConversorReais
     {
-        private Dictionary<int, string> valores = new Dictionary<int, string>()
+        private Dictionary<long, string> valores = new Dictionary<long, string>()
         {   {1, "um"},           {2, "dois"},         {3, "três"},
             {4, "quatro"},       {5, "cinco"},        {6, "seis"},         {7, "sete"},
             {8, "oito"},         {9, "nove"},         {10, "dez"},         {11, "onze"},
@@ -17,30 +18,42 @@ namespace ChequePorExtenso.Dominio
             {900, "novecentos"}
         };
 
-        public string ConverterReais(int valor)
+        public string ConverterReais(long valor)
+        {
+            string resultado = "";
+
+            resultado = Converter(valor);
+
+            resultado += AdicionarSufixoDeReais(valor);
+
+            //return ToUpperPrimeiraLetra(resultado);
+
+            return resultado;
+        }
+
+        public string Converter(long valor)
         {
             string resultado = "";
 
             if (valor < 100)
-                resultado += ConverterMenorQueCem(valor);
-            
+                resultado += EscreverMenorQueCem(valor);
+
             else if (valor < 1000)
-                resultado += ConverterEntreCemEhMil(valor);
-            
-            else if (valor < 10000)
-                //resultado += Converter(valor);
-
-
-
-            resultado += AdicionarSufixoDeReais(valor);
-
-            return ToUpperPrimeiraLetra(resultado);
+                resultado += EscreverCentena(valor);
+            else if (valor < 1000000)
+                resultado += EscreverMil(valor);
+            else if (valor < 1000000000)
+                resultado += EscreverMilhao(valor);
+            else if (valor < 1000000000000)
+                resultado += EscreverBilhao(valor);
+            return resultado;
         }
 
 
-        #region Métodos privados
 
-        private string ConverterMenorQueCem(int valor)
+        #region Métodos privados
+        
+        private string EscreverMenorQueCem(long valor)
         {
             string resultado = "";
             if (valor < 20)
@@ -60,14 +73,14 @@ namespace ChequePorExtenso.Dominio
 
             return resultado;
         }
-
-        private string ConverterEntreCemEhMil(int valor)
+        
+        private string EscreverCentena(long valor)
         {
             string resultado = "";
 
             if (valor > 100 && valor < 200)
             {
-                resultado = "cento e " + ConverterMenorQueCem(valor - 100);
+                resultado = "cento e " + EscreverMenorQueCem(valor - 100);
                 return resultado;
             }
             var resto = valor % 100;
@@ -77,9 +90,114 @@ namespace ChequePorExtenso.Dominio
             if (resto == 0)
                 resultado += valores[centena];
             else
-                resultado += valores[centena] + " e " + ConverterMenorQueCem(resto);
+                resultado += valores[centena] + " e " + EscreverMenorQueCem(resto);
 
             return resultado;
+        }
+
+        private string EscreverMil(long valor)
+        {
+            var resto = valor % 1000;
+
+            var novoValor = valor - resto;
+
+            var valorMilhar = (novoValor / 1000);
+
+            var milhar = Converter(valorMilhar);
+
+            string numeroRestante = "", resultado = "";
+
+            string sufixoMil = AdicionarSufixoMil(resto);
+
+            if (resto != 0)
+            {
+                numeroRestante = Converter(resto);
+                resultado = milhar + sufixoMil + " " + numeroRestante;
+            }
+            else
+                resultado = milhar + sufixoMil;
+
+            return resultado;
+        }
+        
+        private string EscreverMilhao(long valor)
+        {
+            var resto = valor % 1000000;
+
+            var novoValor = valor - resto;
+
+            var valorMilhao = (novoValor / 1000000);
+
+            var milhao = Converter(valorMilhao);
+
+            string numeroRestante = "", resultado = "";
+
+            string sufixoMilhao = AdicionarSufixoMilhao(valorMilhao);
+
+            if (resto != 0)
+            {
+                numeroRestante = Converter(resto);
+                if (resto <= 1000)
+                    resultado = milhao + sufixoMilhao + " e " + numeroRestante;
+                else
+                    resultado = milhao + sufixoMilhao + " " + numeroRestante;
+            }
+            else
+                resultado = milhao + sufixoMilhao;
+
+            return resultado;
+        }
+
+        private string EscreverBilhao(long valor)
+        {
+            var resto = valor % 1000000000;
+
+            var novoValor = valor - resto;
+
+            var valorBilhao = (novoValor / 1000000000);
+
+            var bilhao = Converter(valorBilhao);
+
+            string numeroRestante = "", resultado = "";
+
+            string sufixoBilhao = AdicionarSufixoBilhao(valorBilhao);
+
+            if (resto != 0)
+            {
+                numeroRestante = Converter(resto);
+                if (resto <= 1000)
+                    resultado = bilhao + sufixoBilhao + " e " + numeroRestante;
+                else
+                    resultado = bilhao + sufixoBilhao + " " + numeroRestante;
+            }
+            else
+                resultado = bilhao + sufixoBilhao;
+
+            return resultado;
+        }
+
+        private string AdicionarSufixoMil(long resto)
+        {
+            if (resto == 0 || resto > 100)
+                return " mil";
+            else
+                return " mil e";
+        }
+
+        private string AdicionarSufixoMilhao(long valor)
+        {
+            if (valor == 1)
+                return " milhão";
+            else
+                return " milhões";
+        }
+
+        private string AdicionarSufixoBilhao(long valor)
+        {
+            if (valor == 1)
+                return " bilhão";
+            else
+                return " bilhões";
         }
 
         public string ToUpperPrimeiraLetra(string texto)
@@ -88,9 +206,14 @@ namespace ChequePorExtenso.Dominio
             return primeiraLetra + texto.Substring(1);
         }
 
-        private string AdicionarSufixoDeReais(int numero)
+        private string AdicionarSufixoDeReais(long numero)
         {
-            return numero > 1 ? " reais" : " real";
+            if (numero == 1)
+                return " real";
+            else if (numero == 1000000 || numero == 1000000000)
+                return " de reais";
+            else
+                return " reais";
         }
 
         #endregion

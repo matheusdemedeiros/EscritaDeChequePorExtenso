@@ -15,9 +15,9 @@ namespace ChequePorExtenso
             {60, "sessenta"},    {70, "setenta"},     {80, "oitenta"},     {90, "noventa"}
         };
 
-        public string ConverterCentavos(double valor)
+        public string ConverterCentavos(decimal valor)
         {
-            var numeroInteiro = (int)(valor * 100);
+            var numeroInteiro = (int)Math.Truncate(valor * 100);
 
             string resultado = "";
 
@@ -39,7 +39,9 @@ namespace ChequePorExtenso
 
             resultado += AdicionarSufixoDeCentavos(numeroInteiro);
 
-            return ToUpperPrimeiraLetra(resultado);
+            //return ToUpperPrimeiraLetra(resultado);
+
+            return resultado;
         }
 
         #region Métodos privados

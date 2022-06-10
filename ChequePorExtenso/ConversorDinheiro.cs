@@ -1,0 +1,71 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ChequePorExtenso.Dominio
+{
+    public class ConversorDinheiro
+    {
+
+        private ConversorCentavos cc;
+        private ConversorReais cr;
+
+        public ConversorDinheiro()
+        {
+            this.cc = new ConversorCentavos();
+            this.cr = new ConversorReais();
+        }
+
+
+        public string EscreverDinheiroPorExtenso(double valor)
+        {
+            string resultado = "";
+
+            if (valor <= 0)
+                return "Valor inválido";
+
+            long valorReais = (long)Math.Truncate(valor);
+
+             decimal valorCentavos = (decimal)(valor - valorReais);
+
+
+            if (valorCentavos < 0)
+                valorCentavos = valorCentavos * (-1);
+
+
+            string reais = "", centavos = "";
+            if (valorReais > 0)
+                reais = cr.ConverterReais(valorReais);
+
+            if (valorCentavos > 0)
+                centavos = cc.ConverterCentavos(valorCentavos);
+
+            resultado = reais;
+
+            if (string.IsNullOrEmpty(centavos) == false)
+            {
+                if (string.IsNullOrEmpty(resultado))
+                    resultado = centavos;
+                else
+                    resultado += " e " + RemoverSufixoReaisDosCentavos(centavos);
+            }
+
+            return ToUpperPrimeiraLetra(resultado);
+        }
+
+        public string ToUpperPrimeiraLetra(string texto)
+        {
+            var primeiraLetra = texto.ToUpper()[0];
+            return primeiraLetra + texto.Substring(1);
+        }
+
+        private string RemoverSufixoReaisDosCentavos(string texto)
+        {
+            var retorno = texto.Replace(" de real", "");
+            return retorno;
+        }
+
+    }
+}

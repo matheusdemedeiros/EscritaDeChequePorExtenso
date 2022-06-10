@@ -7,7 +7,7 @@ namespace ChequePorExtenso.Tests
     {
         [TestMethod]
         [DataRow(0.01, "Um centavo de real")]
-        public void Deve_Converter_1_Centavo(double valor, string resultadoEsperado)
+        public void Deve_Converter_1_Centavo(decimal valor, string resultadoEsperado)
         {
             ConversorCentavos cv = new ConversorCentavos();
             
@@ -26,7 +26,7 @@ namespace ChequePorExtenso.Tests
         [DataRow(0.08, "Oito centavos de real")]
         [DataRow(0.09, "Nove centavos de real")]
         [DataRow(0.10, "Dez centavos de real")]
-        public void Deve_Converter_Do_2_Ate_19_Centavo(double valor, string resultadoEsperado)
+        public void Deve_Converter_Do_2_Ate_19_Centavo(decimal valor, string resultadoEsperado)
         {
             ConversorCentavos cv = new ConversorCentavos();
 
@@ -46,7 +46,7 @@ namespace ChequePorExtenso.Tests
         [DataRow(0.18, "Dezoito centavos de real")]
         [DataRow(0.19, "Dezenove centavos de real")]
         [DataRow(0.20, "Vinte centavos de real")]
-        public void Deve_Converter_Do_11_Ate_19_Centavo(double valor, string resultadoEsperado)
+        public void Deve_Converter_Do_11_Ate_19_Centavo(decimal valor, string resultadoEsperado)
         {
             ConversorCentavos cv = new ConversorCentavos();
 
@@ -65,7 +65,7 @@ namespace ChequePorExtenso.Tests
         [DataRow(0.70, "Setenta centavos de real")]
         [DataRow(0.80, "Oitenta centavos de real")]
         [DataRow(0.90, "Noventa centavos de real")]
-        public void Deve_Converter_Dezenas_Inteiras_De_Centavo(double valor, string resultadoEsperado)
+        public void Deve_Converter_Dezenas_Inteiras_De_Centavo(decimal valor, string resultadoEsperado)
         {
             ConversorCentavos cv = new ConversorCentavos();
 
@@ -84,7 +84,7 @@ namespace ChequePorExtenso.Tests
         [DataRow(0.87, "Oitenta e sete centavos de real")]
         [DataRow(0.98, "Noventa e oito centavos de real")]
         [DataRow(0.99, "Noventa e nove centavos de real")]
-        public void Deve_Converter_Dezenas_E_Unidades_De_Centavo(double valor, string resultadoEsperado)
+        public void Deve_Converter_Dezenas_E_Unidades_De_Centavo(decimal valor, string resultadoEsperado)
         {
             ConversorCentavos cv = new ConversorCentavos();
 
