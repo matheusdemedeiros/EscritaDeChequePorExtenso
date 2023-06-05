@@ -1,25 +1,19 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ChequePorExtenso.Dominio
 {
     public class ConversorDinheiro
     {
-
         private ConversorCentavos cc;
         private ConversorReais cr;
 
         public ConversorDinheiro()
         {
-            this.cc = new ConversorCentavos();
-            this.cr = new ConversorReais();
+            cc = new ConversorCentavos();
+            cr = new ConversorReais();
         }
 
-
-        public string EscreverDinheiroPorExtenso(double valor)
+        public string EscreverDinheiroPorExtenso(decimal valor)
         {
             string resultado = "";
 
@@ -28,8 +22,7 @@ namespace ChequePorExtenso.Dominio
 
             long valorReais = (long)Math.Truncate(valor);
 
-             decimal valorCentavos = (decimal)(valor - valorReais);
-
+            decimal valorCentavos = (decimal)(valor - valorReais);
 
             if (valorCentavos < 0)
                 valorCentavos = valorCentavos * (-1);
@@ -66,6 +59,5 @@ namespace ChequePorExtenso.Dominio
             var retorno = texto.Replace(" de real", "");
             return retorno;
         }
-
     }
 }

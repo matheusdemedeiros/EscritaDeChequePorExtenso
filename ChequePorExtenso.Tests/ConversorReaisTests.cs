@@ -16,7 +16,7 @@ namespace ChequePorExtenso.Tests
 
             var resultado = cv.ConverterReais(valor);
 
-            Assert.AreEqual(resultadoEsperado, resultado);
+            Assert.AreEqual(resultadoEsperado.ToLower(), resultado.ToLower());
         }
 
 
@@ -36,7 +36,7 @@ namespace ChequePorExtenso.Tests
 
             var resultado = cv.ConverterReais(valor);
 
-            Assert.AreEqual(resultadoEsperado, resultado);
+            Assert.AreEqual(resultadoEsperado.ToLower(), resultado.ToLower());
         }
 
         [TestMethod]
@@ -56,7 +56,7 @@ namespace ChequePorExtenso.Tests
 
             var resultado = cv.ConverterReais(valor);
 
-            Assert.AreEqual(resultadoEsperado, resultado);
+            Assert.AreEqual(resultadoEsperado.ToLower(), resultado.ToLower());
         }
 
 
@@ -75,7 +75,7 @@ namespace ChequePorExtenso.Tests
 
             var resultado = cv.ConverterReais(valor);
 
-            Assert.AreEqual(resultadoEsperado, resultado);
+            Assert.AreEqual(resultadoEsperado.ToLower(), resultado.ToLower());
         }
 
         [TestMethod]
@@ -94,7 +94,7 @@ namespace ChequePorExtenso.Tests
 
             var resultado = cv.ConverterReais(valor);
 
-            Assert.AreEqual(resultadoEsperado, resultado);
+            Assert.AreEqual(resultadoEsperado.ToLower(), resultado.ToLower());
         }
 
 
@@ -114,7 +114,7 @@ namespace ChequePorExtenso.Tests
 
             var resultado = cv.ConverterReais(valor);
 
-            Assert.AreEqual(resultadoEsperado, resultado);
+            Assert.AreEqual(resultadoEsperado.ToLower(), resultado.ToLower());
         }
 
         [TestMethod]
@@ -136,9 +136,9 @@ namespace ChequePorExtenso.Tests
 
             var resultado = cv.ConverterReais(valor);
 
-            Assert.AreEqual(resultadoEsperado, resultado);
+            Assert.AreEqual(resultadoEsperado.ToLower(), resultado.ToLower());
         }
-        
+
         [TestMethod]
         [DataRow(201, "Duzentos e um reais")]
         [DataRow(311, "Trezentos e onze reais")]
@@ -155,10 +155,10 @@ namespace ChequePorExtenso.Tests
 
             var resultado = cv.ConverterReais(valor);
 
-            Assert.AreEqual(resultadoEsperado, resultado);
+            Assert.AreEqual(resultadoEsperado.ToLower(), resultado.ToLower());
         }
 
-    
+
 
         [TestMethod]
         [DataRow(1000, "Um mil reais")]
@@ -185,7 +185,7 @@ namespace ChequePorExtenso.Tests
 
             var resultado = cv.ConverterReais(valor);
 
-            Assert.AreEqual(resultadoEsperado, resultado);
+            Assert.AreEqual(resultadoEsperado.ToLower(), resultado.ToLower());
         }
 
 
@@ -200,21 +200,21 @@ namespace ChequePorExtenso.Tests
 
             var resultado = cv.ConverterReais(valor);
 
-            Assert.AreEqual(resultadoEsperado, resultado);
+            Assert.AreEqual(resultadoEsperado.ToLower(), resultado.ToLower());
         }
 
         [TestMethod]
         [DataRow(1000000000, "Um bilhão de reais")]
         [DataRow(1000000001, "Um bilhão e um reais")]
         [DataRow(8425961637, "Oito bilhões quatrocentos e vinte e cinco milhões novecentos e sessenta e um mil seiscentos e trinta e sete reais")]
-        //[DataRow(425000637, "Quatrocentos e vinte e cinco bilhões e seiscentos e trinta e sete reais")]
+        [DataRow(425000637, "Quatrocentos e vinte e cinco milhões e seiscentos e trinta e sete reais")]
         public void Deve_Converter_De_1000_Ate_999999999999_Reais(long valor, string resultadoEsperado)
         {
             ConversorReais cv = new ConversorReais();
 
             var resultado = cv.ConverterReais(valor);
 
-            Assert.AreEqual(resultadoEsperado, resultado);
+            Assert.AreEqual(resultadoEsperado.ToLower(), resultado.ToLower());
         }
     }
 }

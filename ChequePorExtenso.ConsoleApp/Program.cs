@@ -8,22 +8,24 @@ namespace ChequePorExtenso.ConsoleApp
     {
         static void Main(string[] args)
         {
-            ConversorReais cr = new ConversorReais();
-            List<string> numerosExtenso = new List<string>();
-            for (long i = 1; i < 999999999999; i++)
+            var cr = new ConversorReais();
+            var numerosExtenso = new List<string>();
+            long maxNumber = 1000;
+
+            if (args.Length > 0 && long.TryParse(args[0], out long argNumber))
+            {
+                maxNumber = argNumber;
+            }
+
+            Console.WriteLine($"Humanizando os números de 1 a {maxNumber} !!");
+
+            for (long i = 1; i <= maxNumber; i++)
             {
                 numerosExtenso.Add($"{i} : {cr.ConverterReais(i)}");
                 Console.WriteLine($"{i} : {cr.ConverterReais(i)}");
-
             }
 
-            //numerosExtenso.ForEach(x => Console.WriteLine(x));
-
-
-        
-
-
-            Console.ReadLine();
+            Console.ReadKey();
         }
     }
 }

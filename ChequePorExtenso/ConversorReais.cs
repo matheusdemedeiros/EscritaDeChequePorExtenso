@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace ChequePorExtenso.Dominio
 {
@@ -52,7 +51,7 @@ namespace ChequePorExtenso.Dominio
 
 
         #region Métodos privados
-        
+
         private string EscreverMenorQueCem(long valor)
         {
             string resultado = "";
@@ -73,7 +72,7 @@ namespace ChequePorExtenso.Dominio
 
             return resultado;
         }
-        
+
         private string EscreverCentena(long valor)
         {
             string resultado = "";
@@ -119,7 +118,7 @@ namespace ChequePorExtenso.Dominio
 
             return resultado;
         }
-        
+
         private string EscreverMilhao(long valor)
         {
             var resto = valor % 1000000;
